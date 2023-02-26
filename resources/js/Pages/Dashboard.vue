@@ -4,19 +4,41 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
+
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
-                </div>
-            </div>
+        <div class="overflow-x-auto">
+            <table class="table w-full ">
+                <thead>
+                    <tr class="hover">
+                        <th></th>
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Favorite Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="hover">
+                        <th>1</th>
+                        <td>Cy Ganderton</td>
+                        <td>Quality Control Specialist</td>
+                        <td>Blue</td>
+                    </tr>
+                    <tr class="hover">
+                        <th>2</th>
+                        <td>Hart Hagerty</td>
+                        <td>Desktop Support Technician</td>
+                        <td>Purple</td>
+                    </tr>
+                    <tr class="hover">
+                        <th>3</th>
+                        <td>Brice Swyre</td>
+                        <td>Tax Accountant</td>
+                        <td>Red</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </AuthenticatedLayout>
 </template>
