@@ -25,13 +25,13 @@ class UserSeeder extends Seeder
             'name' => 'Srudent',
             'email' => 'srudent@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('srudent009'),
+            'password' => bcrypt('student009'),
         ])->assignRole('student');
         User::create([
             'name' => 'Staff',
             'email' => 'staff@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('Staff009'),
+            'password' => bcrypt('staff009'),
         ])->assignRole('staff');
         User::create([
             'name' => 'Professor',

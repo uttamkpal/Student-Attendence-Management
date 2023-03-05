@@ -1,16 +1,20 @@
 <script setup>
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+
 
 defineProps({
     canResetPassword: Boolean,
     status: String,
 });
+
+const error = ref({});
 
 const form = useForm({
     email: '',
@@ -19,9 +23,20 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+    axios.post('login', form).then(response => {
+        console.log(response.data);
+        localStorage.setItem('token', JSON.stringify(response.data.token));
+        window.location.href = 'dashboard';
+    }).catch(errors => {
+        error.value = errors.response.data;
+    })
+
+    // form.post(route('login'), {
+    //     onFinish: () => {
+    //         form.reset('password');
+    //         console.log(form);
+    //     }
+    // });
 };
 </script>
 
@@ -47,7 +62,7 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="error.email" />
             </div>
 
             <div class="mt-4">
@@ -62,7 +77,7 @@ const submit = () => {
                     autocomplete="current-password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="error.password" />
             </div>
 
             <div class="block mt-4">
