@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\RoleController ;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('roles')->middleware(['auth:sanctum', 'role:admin'])->name('roles.')->group( function() {
     Route::get('/', [RoleController::class, 'index'])->name('index');
+
+});
+
+Route::prefix('users')->middleware(['auth:sanctum', 'role:admin'])->name('user.')->group( function() {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::patch('/{user}/edit', [UserController::class, 'update'])->name('update');
+    Route::delete('/{user}', [UserController::class, 'destroy'])->name('update');
 
 });
