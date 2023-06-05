@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfessorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,10 +31,14 @@ Route::get('/dashboard',[UserController::class ,'dashboard'])->middleware(['auth
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group( function() {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
-    Route::get('users', [UserController::class, 'ViewIndex'])->name('users.index');
+    Route::prefix('users')->name('users.')->group( function(){
+        Route::get('/', [UserController::class, 'ViewIndex'])->name('index');
+        Route::get('create', [UserController::class, 'ViewCreate'])->name('create');
+
+    });
 });
 Route::prefix('professor')->middleware(['auth', 'role:professor'])->name('professor.')->group( function() {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/', [ProfessorController::class, 'index'])->name('index');
 });
 Route::prefix('staff')->middleware(['auth', 'role:staff'])->name('staff.')->group( function() {
     Route::get('/', [AdminController::class, 'index'])->name('index');

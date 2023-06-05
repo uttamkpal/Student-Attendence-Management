@@ -2,12 +2,17 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
+<script>
+export default {
+    layout:AdminLayout,
+}
+</script>
 
 <template>
 
     <Head title="Admin Dashboard" />
 
-    <AdminLayout>
+
         <div class="overflow-x-auto">
 
 
@@ -43,5 +48,5 @@ import { Head } from '@inertiajs/vue3';
                 </tbody>
             </table>
         </div>
-    </AdminLayout>
+ 
 </template>

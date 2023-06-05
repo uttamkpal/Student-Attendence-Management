@@ -1,20 +1,20 @@
 <template>
-    <h1>Admin Users Page</h1>
+    <h1 class="py-4 text-sm">Admin Users Page</h1>
     <table class="table w-full ">
         <thead>
             <tr class="hover">
                 <th>#</th>
                 <th>Name</th>
-                <th>Roles</th>
+                <th>Role</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="user, index in users" :key="user.id" class="hover">
-                <th>{{ index + 1 }}</th>
-                <td>{{ user.name }} </td>
-                <td>{{ user.roles[0]['name'] }}</td>
-                <td class="flex gap-3">
+                <th class="p-0">{{ index + 1 }}</th>
+                <td class="p-0">{{ user.name }} </td>
+                <td class="p-0" v-for="role in user.roles" :key="roles.id" >{{ role.name }}</td>
+                <td class="flex gap-3 p-1">
                     <label @click="handleEditForm(user)" for="user-edit-modal"
                         class="btn btn-success text-white">Edit</label>
                     <button @click="deleteUser(user.id)" class="btn btn-error">X</button>
@@ -47,65 +47,70 @@
     </div>
 </template>
 
-<script setup>
-import { onMounted, ref, defineEmits } from 'vue';
+<script>
 import { notify } from "@kyvg/vue3-notification";
+export default {
+    name: 'UsersList',
+    props:['users'],
+    emits: ['getUsers'],
+    data() {
+        return {
+            roles: {},
+            modal: false,
+            formUser: {
+                name: '',
+                role: null,
+                id: null
+            }
+        }
+    },
+    methods: {
+        handleEditForm(user) {
+            this.formUser.name = user.name;
+            this.formUser.role = user.roles[0]['id'];
+            this.formUser.id = user.id;
+        },
+        deleteUser(id) {
+            if (confirm("You want to delete this User")) {
+                axios.delete('/api/users/' + id)
+                .then(response => {
+                    
+                    notify({
+                        title: response.data.success,
+                        type: "success"
+                    });
+                })
+            }
 
-const { users } = defineProps(['users']);
-const emit = defineEmits(['get:users']);
-const roles = ref({});
-const modal = ref(false);
+        },
 
-const formUser = ref(
-    {
-        name: '',
-        role: null,
-        id: null
-    }
-);
-
-const handleEditForm = (user) => {
-    formUser.value.name = user.name;
-    formUser.value.role = user.roles[0]['id'];
-    formUser.value.id = user.id;
-}
-const deleteUser = (id) => {
-    if (confirm("You want to delete this User")) {
-        axios.delete('/api/users/' + id)
+        updateUser() {
+            axios.patch('/api/users/' + this.formUser.id + '/edit', this.formUser)
+                .then((response) => {
+                    notify({
+                        title: response.data.success,
+                        type: "success"
+                    });
+                    this.$emit('getUsers');
+                    this.modal = false;
+                })
+                .catch((errors) => {
+                    notify({
+                        title: 'user updated failed',
+                        type: "error"
+                    });
+                    this.modal = false;
+                });
+        }
+    },
+    mounted() {
+        axios.get('/api/roles')
         .then(response => {
-            emit('get:users');
-            notify({
-                title: response.data.success,
-                type: "success"
-            });
-        })
-    }
-
-}
-const updateUser = () => {
-    axios.patch('/api/users/' + formUser.value.id + '/edit', formUser.value)
-        .then(response => {
-            emit('get:users');
-
-            notify({
-                title: response.data.success,
-                type: "success"
-            });
-            modal.value = false;
-        })
-        .catch(errors => {
-            notify({
-                title: errors.response.data.error,
-                type: "error"
-            });
-            modal.value = false;
+            this.roles = response.data
         });
+       
+    },
 }
-onMounted(() => {
-    axios.get('/api/roles')
-        .then(response => {
-            roles.value = response.data
-        });
-})
+
 
 </script>

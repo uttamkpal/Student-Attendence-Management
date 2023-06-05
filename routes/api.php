@@ -28,7 +28,8 @@ Route::prefix('roles')->middleware(['auth:sanctum', 'role:admin'])->name('roles.
 
 Route::prefix('users')->middleware(['auth:sanctum', 'role:admin'])->name('user.')->group( function() {
     Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::post('/store', [UserController::class, 'store'])->name('store');
     Route::patch('/{user}/edit', [UserController::class, 'update'])->name('update');
-    Route::delete('/{user}', [UserController::class, 'destroy'])->name('update');
+    Route::delete('/{user}', [UserController::class, 'destroy'])->name('delete');
 
 });

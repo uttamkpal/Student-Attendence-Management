@@ -26,6 +26,8 @@ class UserSeeder extends Seeder
             'email' => 'srudent@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('student009'),
+            'roll_no' => '170118',
+            'registration_no' => '101749',
         ])->assignRole('student');
         User::create([
             'name' => 'Staff',

@@ -8,23 +8,24 @@ import { Link } from '@inertiajs/vue3';
 const sidebar = ref(false);
 
 const sideBarHandler = () => {
-    if(innerWidth > 780){
+    if (innerWidth > 780) {
         sidebar.value = true;
-    }else{
+    } else {
         sidebar.value = false;
     }
 }
-addEventListener("resize",sideBarHandler);
-onMounted(()=> {
-    if(innerWidth > 780){
+addEventListener("resize", sideBarHandler);
+onMounted(() => {
+    if (innerWidth > 780) {
         sidebar.value = true;
-    }else{
+    } else {
         sidebar.value = false;
     }
 })
 </script>
 
 <template>
+    <notifications class="mt-4 text-4xl" />
     <div>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -34,10 +35,10 @@ onMounted(()=> {
                         <div class="flex">
                             <!-- Logo -->
                             <!-- <div class="shrink-0 flex items-center">
-                                    <Link :href="route('dashboard')">
-                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
-                                    </Link>
-                                </div> -->
+                                            <Link :href="route('dashboard')">
+                                            <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                                            </Link>
+                                        </div> -->
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -48,7 +49,7 @@ onMounted(()=> {
                             <div>
                                 <!-- Page content here -->
                                 <div @click="sidebar = !sidebar"
-                                    class="mt-2 px-4 block  drawer-button opacity-75 hover:opacity-50"><img
+                                    class="mt-2 px-2 block  drawer-button opacity-75 hover:opacity-50"><img
                                         src="/image/apps_black.png" alt=""></div>
                             </div>
                         </div>
@@ -94,21 +95,48 @@ onMounted(()=> {
                 </div>
             </nav>
 
+            <!-- Page Heading -->
+            <header class="bg-white shadow" v-if="$slots.header">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <slot name="header" />
+                </div>
+            </header>
+
             <!-- Page Content -->
-            <main class="flex min-h-full">
-                <div class="min-h-full">
-                    <div class="w-48 min-h-full" :class="sidebar ? 'flex': 'hidden'">
-                        <ul class=" w-48 bg-base-100 text-base-content">
-                            <!-- Sidebar content here -->
+            <main class="flex min-h-screen">
+                <div class="min-h-screen">
+                    <div class="w-48 min-h-screen dropdown" :class="sidebar ? 'flex' : 'hidden'">
+                        <label tabindex="0" class="btn btn-ghost hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </label>
+                        <ul class="w-48 bg-base-100 text-base-content">
+                            <!-- Sidebar content here --> 
                             <li>
-                                <Link :href="route('dashboard')" class="pl-4 py-2 mt-4 block hover:bg-gray-400 hover:text-white">Users</Link>
+                                 <label class="pl-4 py-2 mt-4 flex justify-between hover:bg-gray-400 hover:text-white w-full"
+                                    tabindex="0"><span>Student</span>
+                                    <svg class="fill-current inline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+                                </label> 
+                                <ul tabindex="0" class="dropdown-content menu block bg-white text-black  w-full">
+                                    <li><Link :href="route('admin.users.index')" class="pl-4 py-2 block  w-full"
+                                    >All Student</Link></li>
+                                    <li><Link :href="route('admin.users.create')" class="pl-4 py-2 block  w-full"
+                                    >Create New</Link></li>
+                                </ul>
                             </li>
-                            <li><Link :href="route('dashboard')" class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">Sidebar Item 2</link></li>
-                            <li><a class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">Sidebar Item 1</a></li>
+                            
+                            <!-- <li>
+                                <Link :href="route('dashboard')" class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">
+                                Sidebar Item 2</link>
+                            </li>
+                            <li><a class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">Sidebar Item 1</a></li> -->
                         </ul>
                     </div>
                 </div>
-                <div class="w-full p-4 shadow">
+                <div class="w-full p-4 shadow ">
                     <slot />
                 </div>
             </main>

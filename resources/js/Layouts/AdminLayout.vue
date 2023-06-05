@@ -49,7 +49,7 @@ onMounted(() => {
                             <div>
                                 <!-- Page content here -->
                                 <div @click="sidebar = !sidebar"
-                                    class="mt-2 px-4 block  drawer-button opacity-75 hover:opacity-50"><img
+                                    class="mt-2 px-2 block  drawer-button opacity-75 hover:opacity-50"><img
                                         src="/image/apps_black.png" alt=""></div>
                             </div>
                         </div>
@@ -103,18 +103,18 @@ onMounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="flex min-h-full">
-                <div class="min-h-full">
-                    <div class="w-48 min-h-full dropdown" :class="sidebar ? 'flex' : 'hidden'">
-                        <label tabindex="0" class="btn btn-ghost lg:hidden">
+            <main class="flex min-h-screen">
+                <div class="min-h-screen">
+                    <div class="w-48 min-h-screen dropdown" :class="sidebar ? 'flex' : 'hidden'">
+                        <label tabindex="0" class="btn btn-ghost hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
                         </label>
-                        <ul class=" w-48 bg-base-100 text-base-content">
-                            <!-- Sidebar content here -->
+                        <ul class="w-48 bg-base-100 text-base-content">
+                            <!-- Sidebar content here --> 
                             <li>
                                  <label class="pl-4 py-2 mt-4 flex justify-between hover:bg-gray-400 hover:text-white w-full"
                                     tabindex="0"><span>Users</span>
@@ -122,21 +122,21 @@ onMounted(() => {
                                 </label> 
                                 <ul tabindex="0" class="dropdown-content menu block bg-white text-black  w-full">
                                     <li><Link :href="route('admin.users.index')" class="pl-4 py-2 block  w-full"
-                                    >Users List</Link></li>
-                                    <li><Link :href="route('admin.users.index')" class="pl-4 py-2 block  w-full"
-                                    >Users List</Link></li>
+                                    >All User</Link></li>
+                                    <li><Link :href="route('admin.users.create')" class="pl-4 py-2 block  w-full"
+                                    >Create User</Link></li>
                                 </ul>
                             </li>
                             
-                            <li>
+                            <!-- <li>
                                 <Link :href="route('dashboard')" class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">
                                 Sidebar Item 2</link>
                             </li>
-                            <li><a class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">Sidebar Item 1</a></li>
+                            <li><a class="pl-4 py-2 block hover:bg-gray-400 hover:text-white">Sidebar Item 1</a></li> -->
                         </ul>
                     </div>
                 </div>
-                <div class="w-full p-4 shadow">
+                <div class="w-full p-4 shadow ">
                     <slot />
                 </div>
             </main>
