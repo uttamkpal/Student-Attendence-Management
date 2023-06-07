@@ -23,7 +23,8 @@ class StoreUserRequest extends FormRequest
             'name' => 'required',
             'email' => ['required', 'email', 'unique:users,email', 'regex:/(.*)@(gmail|yahoo|hotmail)\.com/i'],
             'password' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'image' => 'mimes:jpg,jpeg,png|max:2048'
         ];
     }
     public function messages(): mixed

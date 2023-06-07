@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->default('/image/male-avator.jpg');
             $table->bigInteger('roll_no')->nullable()->index();
             $table->string('registration_no', 10)->nullable();
             $table->string('session')->nullable();

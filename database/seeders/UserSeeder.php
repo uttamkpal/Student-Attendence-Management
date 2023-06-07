@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('admin009'),
+            'password' =>'admin009',
         ])->assignRole('admin');
         User::create([
             'name' => 'Srudent',
             'email' => 'srudent@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('student009'),
+            'password' => 'student009',
             'roll_no' => '170118',
             'registration_no' => '101749',
         ])->assignRole('student');
@@ -33,13 +33,13 @@ class UserSeeder extends Seeder
             'name' => 'Staff',
             'email' => 'staff@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('staff009'),
+            'password' => 'staff009',
         ])->assignRole('staff');
         User::create([
             'name' => 'Professor',
             'email' => 'professor@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('professor009'),
+            'password' => 'professor009',
         ])->assignRole('professor');
     }
 }

@@ -36,17 +36,31 @@ class UserController extends Controller
     {
         // return response()->json($request->all(), 400);
         $validated = $request->validated();
+        if($request->file()) {
+            $image_name = time().'_'.$request->image->getClientOriginalName();
+            $image_path = $request->file('image')->storeAs('uploads', $image_name, 'public');
+        }
         if($request->role == 'student'){
             if($request->roll_no != '' || $request->registration_no != ''){
                 $user = User::create($validated);
                 $user->roll_no = $request->roll_no;
                 $user->registration_no = $request->registration_no;
+                $user->session = $request->session;
+                $user->phone = $request->phone;
+                $user->address = $request->address;
+                if($image_path){
+                    $user->image = $image_path;
+                }
                 $user->save();
             } else {
                 return response()->json("A Student Must Have Roll and Registration Number", 400);
             }
         }else{
             $user = User::create($validated);
+            if($image_path){
+                $user->image = $image_path;
+                $user->save();
+            }
         }
         $user->assignRole($request->role);
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('session')->nullable();
             $table->bigInteger('roll_no')->nullable();
             $table->foreignId('courses_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('roll_no')->references('roll_no')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('roll_no')->references('roll_no')->on('users')->onDelete('cascade')->onUpdate('cascade')->constant();
             $table->boolean('is_present');
             $table->timestamps();
         });
