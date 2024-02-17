@@ -1,4 +1,4 @@
-<h1> Guestion Maker and Result Management System </h1>
+<h1>Student Attendence Management</h1>
 
 <h3>Server Side Tools:</h3>
     "php": "^8.0.2",
